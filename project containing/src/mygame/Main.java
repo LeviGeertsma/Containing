@@ -7,7 +7,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
@@ -25,8 +24,9 @@ public class Main extends SimpleApplication {
     InlandCrane[] inlandCranes = new InlandCrane[3];
     TrainCrane[] trainCranes = new TrainCrane[4];
     TruckCrane[] truckCranes = new TruckCrane[20];
+    public int[] trainSpacesFree = new int[87];
     int test = 1;
-     Train train;
+    Train train;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -46,13 +46,19 @@ public class Main extends SimpleApplication {
         initTrainCrane();
         initTruckCrane();
 
-
         Node sceneNode = new Node("Scene");
         sceneNode.attachChild(SkyFactory.createSky(assetManager, "Textures/BrightSky.dds", false));
         rootNode.attachChild(sceneNode);
-        
+
         train = new Train(assetManager);
         rootNode.attachChild(train);
+
+        for(int i = 0; i < 83; i++){
+            train.attachChild(containers[i]);
+            containers[i].setLocalTranslation((13/3 * i * 1.2f) - 197, 1, 0);
+            containers[i].rotate(0,FastMath.PI / 2 ,0);
+        }
+        
     }
 
     @Override
@@ -65,7 +71,7 @@ public class Main extends SimpleApplication {
     }
 
     public void makecontainer() {
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 100; i++) {
             //    int i = 1;
             containers[i] = new Container(assetManager);
             rootNode.attachChild(containers[i]);

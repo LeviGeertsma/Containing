@@ -45,10 +45,13 @@ public class TrainCrane extends Node {
         bovenkant.setLocalTranslation(0, 8, 4);
     }
 
-    public void setContainer(Container container, int location, float tpf) {
+    public void setContainer(Container container, int location, float tpf, int row,
+            boolean isLoaded) {
         switch (getContainerInt) {
+            
             case 1:
-                System.out.println(this.getLocalTranslation().x);
+                //System.out.println(this.getLocalTranslation().x);
+                
                 if ((int) this.getLocalTranslation().x < location) {
                     this.move(tpf * 1f, 0, 0);
                 } else if ((int) this.getLocalTranslation().x > location) {
