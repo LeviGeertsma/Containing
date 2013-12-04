@@ -8,6 +8,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -63,7 +64,7 @@ public class InlandCrane extends Node {
         attachChild(binnenvaartkraan7);
     }
     
-        public void getContainer(Container container, float tpf, int location) {
+        public boolean getContainer(Container container, float tpf, int location) {
         switch (getContainerInt) {
             case 1:
                 System.out.println(this.getLocalTranslation());
@@ -78,8 +79,11 @@ public class InlandCrane extends Node {
                     getContainerInt++;
                     this.attachChild(container);
                     container.setLocalTranslation(-10, 13.5f, 3);
+                    container.rotate(0,FastMath.PI / 2,0);
+                    //container.setLocalRotation();
                 }
-                break;
+                return false;
+                //break;
             case 2:
                 if ((int) container.getLocalTranslation().x < 7f) {
                     container.move(1 * tpf, 0, 0);
@@ -90,8 +94,10 @@ public class InlandCrane extends Node {
                     super.parent.attachChild(container);
                     container.setLocalTranslation(this.getLocalTranslation().x + 3, 1, this.getLocalTranslation().z - 7);
                     container.rotate(0, FastMath.PI/2, 0);
+                    return true;
                 }
-                break;
+                return false;
         }
+        return false;
     }
 }

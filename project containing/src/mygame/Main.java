@@ -58,12 +58,45 @@ public class Main extends SimpleApplication {
             containers[i].setLocalTranslation((13/3 * i * 1.2f) - 197, 1, 0);
             containers[i].rotate(0,FastMath.PI / 2 ,0);
         }
-        
+        //set the test u want to use here:
+        // set test 1 for testing whole storageCrain
+        // set test 3 for testing TruckCrain
+        // 4 inland
+        // 5 seacrane
+        test = 4;
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        //train.Departure(tpf);
+        
+        switch(test){
+            case 1: // testing the StorageCrane both methods
+                if(storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)){
+                    test += 1;// continue
+                }
+                break;
+            case 2: // testing the StorageCrane get container note that there has to be a container first
+                // this will be checked in the controller and not in the simulator so it can't give an error
+                if(storageCranes[1].getContainer(containers[0], 1, tpf)){
+                    test = 0; // end the test
+                }
+                break;
+            case 3:
+                if(truckCranes[1].loadContainer(containers[0], tpf)){
+                    test = 0; // end the test
+                }break;
+            case 4:
+                if(inlandCranes[0].getContainer(containers[0], tpf, 30)){
+                    test = 0;//end the test
+                }break;
+            case 5:
+                if (seaCranes[0].getContainer(containers[0], tpf, -10)){
+                    test = 0;
+                }
+                break;
+                
+        }
+        
     }
 
     @Override
@@ -94,9 +127,7 @@ public class Main extends SimpleApplication {
         rootNode.attachChild(grond);
         grond.setLocalTranslation(250f, -0.020f, -100f);
     }
-    // 13 lang 2.5 breed en 2.5 hoog
 
-    //1500 500 250 3
     public void initStorageCrane() {
 
         for (int i = 0; i < 45; i++) {

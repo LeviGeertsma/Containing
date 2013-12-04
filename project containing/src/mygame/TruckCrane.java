@@ -85,7 +85,7 @@ public class TruckCrane extends Node {
             case 1: // attach the container to crane
                 this.attachChild(container);// attach the container to the crane
                 container.setLocalTranslation(0, 2.5f / 3 * 4, 2.5f / 3 * 1.5f);//set the correct coordinates to the container within the crane 
-                container.rotate(0, FastMath.PI / 2, 0);// rotate the container
+                //container.rotate(0, FastMath.PI / 2, 0);// rotate the container
                 switchcase += 1;// next case
                 break;
             case 2:// move to Truck

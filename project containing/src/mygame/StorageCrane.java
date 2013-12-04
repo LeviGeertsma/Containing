@@ -89,7 +89,7 @@ public class StorageCrane extends Node {
             case 0:
                 this.attachChild(container);// container vast maken aan de kraan zodat hij meerijdt
                 container.setLocalTranslation(0, 2.5f / 3 * 8, 2.5f / 3 * 5);//goed neerzetten 
-                container.rotate(0, FastMath.PI / 2, 0);// een kwart slag draaien
+                
                 switchcase += 1;// ga naar volgende case
                 break;
 
@@ -165,7 +165,9 @@ public class StorageCrane extends Node {
                         * Integer.parseInt(numberStorageCranesCounter)) + 2.5f / 3 * 3, // de x
                         2.5f / 6, // de y = de hoogte
                         (-50)); // de z = de diepte
+                switchcase = 0;
                 return true;
+                
         }
         return false;
 

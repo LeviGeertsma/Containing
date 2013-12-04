@@ -11,6 +11,7 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 
 /**
@@ -20,8 +21,10 @@ import com.jme3.scene.shape.Box;
 public class TrainCrane extends Node {
 
     int getContainerInt = 1;
+    static int numberTrainCranes = 0;
 
     public TrainCrane(AssetManager assetManager) {
+        super("NumberTrainCranes " + numberTrainCranes++ + " ");
         Box boxshape1 = new Box(Vector3f.ZERO, 1f, 4f, 0.5f);
         Box boxshape2 = new Box(Vector3f.ZERO, 1f, 0.5f, 4f);
 
@@ -47,18 +50,25 @@ public class TrainCrane extends Node {
 
     public void setContainer(Container container, int location, float tpf, int row,
             boolean isLoaded) {
+
+        String numberOfTrainCranes = "";
         switch (getContainerInt) {
-            
+
             case 1:
-                //System.out.println(this.getLocalTranslation().x);
+                if (super.name.charAt(13) != ' ') {
+                    // hier zet je de 2 mogelijke nummers van de huidige kraan neer
+                    numberOfTrainCranes += super.name.charAt(18) + super.name.charAt(19);
+                } else {
+                    numberOfTrainCranes += super.name.charAt(18);
+                }
                 
-                if ((int) this.getLocalTranslation().x < location) {
+                if ((int) this.getLocalTranslation().x < (13 / 3 * row * 1.2f) +100f + (125f * Integer.parseInt(numberOfTrainCranes)) ) {
                     this.move(tpf * 1f, 0, 0);
-                } else if ((int) this.getLocalTranslation().x > location) {
+                } else if ((int) this.getLocalTranslation().x > (13 / 3 * row * 1.2f) +100f + (125f * Integer.parseInt(numberOfTrainCranes))) {
                     this.move(-tpf * 1f, 0, 0);
                 }
 
-                if ((int) this.getLocalTranslation().x == location) {
+                if ((int) this.getLocalTranslation().x == (13 / 3 * row * 1.2f) +100f + (125f * Integer.parseInt(numberOfTrainCranes))) {
                     getContainerInt++;
                     this.attachChild(container);
                     container.setLocalTranslation(0, 6, 1.5f);
@@ -71,7 +81,8 @@ public class TrainCrane extends Node {
                 } else {
                     getContainerInt++;
                     this.detachChild(container);
-                    super.parent.attachChild(container);
+                   //Spatial  train = this.parent.getChild(train);
+                    Train train = new train()
                     container.setLocalTranslation(this.getLocalTranslation().x, 1, this.getLocalTranslation().z + 6.5f);
                 }
                 break;
