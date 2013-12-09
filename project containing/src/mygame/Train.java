@@ -20,7 +20,7 @@ public class Train extends Node {
 
     public Train(AssetManager assetManager) {
         Box boxshape1 = new Box(Vector3f.ZERO, 200f, .5f, 2.8f/3f );
-        Geometry Train = new Geometry("A Textured Box", boxshape1);
+        Geometry Train = new Geometry("Train", boxshape1);
         Material mat_tex = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat_tex.setColor("Color", ColorRGBA.Pink);
         Train.setMaterial(mat_tex);

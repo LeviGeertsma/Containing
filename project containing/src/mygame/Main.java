@@ -7,6 +7,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
@@ -24,9 +25,10 @@ public class Main extends SimpleApplication {
     InlandCrane[] inlandCranes = new InlandCrane[3];
     TrainCrane[] trainCranes = new TrainCrane[4];
     TruckCrane[] truckCranes = new TruckCrane[20];
+    Truck[] trucks = new Truck[20];
     public int[] trainSpacesFree = new int[87];
     int test = 1;
-    Train train;
+    public Train train;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -45,58 +47,75 @@ public class Main extends SimpleApplication {
         initSeaCrane();
         initTrainCrane();
         initTruckCrane();
+        
+        initTrucks();
+        initTrain();
 
         Node sceneNode = new Node("Scene");
         sceneNode.attachChild(SkyFactory.createSky(assetManager, "Textures/BrightSky.dds", false));
         rootNode.attachChild(sceneNode);
 
-        train = new Train(assetManager);
-        rootNode.attachChild(train);
 
-        for(int i = 0; i < 83; i++){
-            train.attachChild(containers[i]);
-            containers[i].setLocalTranslation((13/3 * i * 1.2f) - 197, 1, 0);
-            containers[i].rotate(0,FastMath.PI / 2 ,0);
-        }
+        //Spatial train = rootNode.getChild("Train");
+
+//        for(int i = 0; i < 83; i++){
+//            
+//            train.attachChild(containers[i]);
+//            containers[i].setLocalTranslation((13/3 * i * 1.2f) - 197, 1, 0);
+//            containers[i].rotate(0,FastMath.PI / 2 ,0);
+//        }
+
         //set the test u want to use here:
         // set test 1 for testing whole storageCrain
         // set test 3 for testing TruckCrain
         // 4 inland
         // 5 seacrane
-        test = 4;
+        test = 6;
+        Truck truck = new Truck(assetManager);
+        rootNode.attachChild(truck);
+        truck.setLocalTranslation(0.75f, 0, 0);
+        //truck.attachChild(containers[1]);
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        
-        switch(test){
+
+        switch (test) {
             case 1: // testing the StorageCrane both methods
-                if(storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)){
+                if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
                     test += 1;// continue
                 }
                 break;
             case 2: // testing the StorageCrane get container note that there has to be a container first
                 // this will be checked in the controller and not in the simulator so it can't give an error
-                if(storageCranes[1].getContainer(containers[0], 1, tpf)){
+                if (storageCranes[1].getContainer(containers[0], 1, tpf)) {
                     test = 0; // end the test
                 }
                 break;
             case 3:
-                if(truckCranes[1].loadContainer(containers[0], tpf)){
+                if (truckCranes[1].loadContainer(containers[0], tpf)) {
                     test = 0; // end the test
-                }break;
+                }
+                break;
             case 4:
-                if(inlandCranes[0].getContainer(containers[0], tpf, 30)){
+                if (inlandCranes[0].getContainer(containers[0], tpf, 30)) {
                     test = 0;//end the test
-                }break;
+                }
+                break;
             case 5:
-                if (seaCranes[0].getContainer(containers[0], tpf, -10)){
+                if (seaCranes[0].getContainer(containers[0], tpf, -10)) {
                     test = 0;
                 }
                 break;
-                
+            case 6:
+                if (trainCranes[1].setContainer(train, containers[0], tpf, 30, true)) {
+                    test = 0;
+                }
+                break;
+
+
         }
-        
+
     }
 
     @Override
@@ -108,9 +127,9 @@ public class Main extends SimpleApplication {
             //    int i = 1;
             containers[i] = new Container(assetManager);
             rootNode.attachChild(containers[i]);
-            containers[i].setLocalTranslation(100f, 2.5f / 6 + (2.5f / 3) * i, -50f);
-            containers[i].rotate(0, FastMath.PI / 2, 0);
-
+            //containers[i].setLocalTranslation(100f, 2.5f / 6 + (2.5f / 3) * i, -50f);
+            //containers[i].rotate(0, FastMath.PI / 2, 0);
+            //containers[i].setLocalTranslation(0, 2.5f/6, 0);
             //[i].setLocalTranslation(77f + 13f / 3 + 2.5f / 3 * 12, (2.5f / 3 * 14) + ((13/3) * i), -50f);
         }
     }
@@ -165,7 +184,7 @@ public class Main extends SimpleApplication {
 
             trainCranes[i] = new TrainCrane(assetManager);
             rootNode.attachChild(trainCranes[i]);
-            trainCranes[i].setLocalTranslation(100f + (125f * i), 0, -199f);
+            trainCranes[i].setLocalTranslation(90f + (125f * i), 0, -199f);
         }
     }
 
@@ -176,6 +195,21 @@ public class Main extends SimpleApplication {
             rootNode.attachChild(truckCranes[i]);
             truckCranes[i].setLocalTranslation(400f + (4.5f * i), 0, -1f);
             truckCranes[i].rotate(0, FastMath.PI / 2, 0);
+        }
+    }
+
+    public void initTrain() {
+        train = new Train(assetManager);
+        rootNode.attachChild(train);
+    }
+
+    public void initTrucks() {
+                for (int i = 0; i < 20; i++) {
+
+            trucks[i] = new Truck(assetManager);
+            rootNode.attachChild(trucks[i]);
+            trucks[i].setLocalTranslation(401.2f + (4.5f * i), 1.25f/6, -3.5f);
+            trucks[i].rotate(0, -FastMath.PI/ 2, 0);
         }
     }
 }

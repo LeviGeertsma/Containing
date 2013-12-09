@@ -11,7 +11,6 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 
 /**
@@ -48,44 +47,51 @@ public class TrainCrane extends Node {
         bovenkant.setLocalTranslation(0, 8, 4);
     }
 
-    public void setContainer(Container container, int location, float tpf, int row,
+    public boolean setContainer(Train train, Container container, float tpf, int row,
             boolean isLoaded) {
-
+        
         String numberOfTrainCranes = "";
         switch (getContainerInt) {
-
             case 1:
-                if (super.name.charAt(13) != ' ') {
-                    // hier zet je de 2 mogelijke nummers van de huidige kraan neer
-                    numberOfTrainCranes += super.name.charAt(18) + super.name.charAt(19);
-                } else {
+                if(super.name.charAt(18) != ' '){
                     numberOfTrainCranes += super.name.charAt(18);
                 }
                 
-                if ((int) this.getLocalTranslation().x < (13 / 3 * row * 1.2f) +100f + (125f * Integer.parseInt(numberOfTrainCranes)) ) {
-                    this.move(tpf * 1f, 0, 0);
-                } else if ((int) this.getLocalTranslation().x > (13 / 3 * row * 1.2f) +100f + (125f * Integer.parseInt(numberOfTrainCranes))) {
-                    this.move(-tpf * 1f, 0, 0);
+                //System.out.println( row );
+                //System.out.println( Integer.parseInt(numberOfTrainCranes));
+                if ((int) this.getLocalTranslation().x < (int)(13 / 3 * row * 1.2f) + (95f)) {
+                    this.move(tpf * 10f, 0, 0);
+               System.out.println(" rij weg ");
+                } else if ((int) this.getLocalTranslation().x > (int)(13 / 3 * row * 1.2f) + (95f)) {
+                    this.move(-tpf * 10f, 0, 0);
+                    System.out.println(" rij heen ");
                 }
 
-                if ((int) this.getLocalTranslation().x == (13 / 3 * row * 1.2f) +100f + (125f * Integer.parseInt(numberOfTrainCranes))) {
+                if ((int) this.getLocalTranslation().x == (int)(13 / 3 * row * 1.2f) + (95f)) {
                     getContainerInt++;
                     this.attachChild(container);
-                    container.setLocalTranslation(0, 6, 1.5f);
+                    container.setLocalTranslation(0, 7, 6.5f);
                     container.rotate(0, FastMath.PI / 2, 0);
                 }
-                break;
+                return false;
             case 2:
-                if (container.getLocalTranslation().z < 6.5f) {
-                    container.move(0, 0, 1 * tpf);
+                if (container.getLocalTranslation().z > 1.5f) {
+                    container.move(0, 0, 1 * -tpf);
                 } else {
                     getContainerInt++;
                     this.detachChild(container);
-                   //Spatial  train = this.parent.getChild(train);
-                    Train train = new train()
-                    container.setLocalTranslation(this.getLocalTranslation().x, 1, this.getLocalTranslation().z + 6.5f);
+                    //Spatial  train = this.parent.getChild(train);
+                    //Train train = this.parent.getChild("train");
+                    train.attachChild(container);
+                    container.setLocalTranslation(-199 + (13 / 3 * row * 1.2f) + 13 / 3, 1, 0);
+                    return true;
                 }
-                break;
+                return false;
         }
+        return false;
+    }
+    
+    public Vector3f getLocation(){
+        return this.getLocalTranslation();
     }
 }
