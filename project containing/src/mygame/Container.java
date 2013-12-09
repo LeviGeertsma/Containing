@@ -26,7 +26,7 @@ public class Container extends Node {
         numbercontainers++;
 
         Box box = new Box(Vector3f.ZERO, 13f / 6, 2.5f / 6, 2.5f / 6);//13 bij 2.5
-        Geometry container = new Geometry("A Textured Box", box);
+        Geometry container = new Geometry("Container", box);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         
             mat.setColor("Color", ColorRGBA.randomColor());

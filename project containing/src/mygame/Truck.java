@@ -42,4 +42,23 @@ public class Truck extends Node {
         bottom.setLocalTranslation(0, 0, 0);
         cabin.setLocalTranslation(15f/6, 2.5f/6, 0);
     }
+    
+    public boolean departure(float tpf){
+       String numberOfTrucks = "";
+       
+       if (super.name.charAt(7) != ' ') {
+                    // hier zet je de 2 mogelijke nummers van de huidige kraan neer
+                    numberOfTrucks += super.name.charAt(6) + super.name.charAt(7);
+                } else {
+                    numberOfTrucks += super.name.charAt(6);
+                }
+       
+        if(this.getLocalTranslation().z < 13/3){
+            this.move(0, 0, 5*tpf);
+            return false;
+        } else {
+            this.setLocalTranslation(401.2f + (4.5f * Integer.parseInt(numberOfTrucks)), 1.25f/6, -3.5f);
+        return true;
+        }
+    }
 }

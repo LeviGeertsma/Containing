@@ -32,7 +32,6 @@ public class Train extends Node {
         if (this.getLocalTranslation().x < 700) {
             this.move(48f * tpf, 0, 0);
         } else {
-            //this.detachAllChildren();
             this.removeFromParent();
         }
     }

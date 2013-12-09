@@ -70,7 +70,7 @@ public class Main extends SimpleApplication {
         // set test 3 for testing TruckCrain
         // 4 inland
         // 5 seacrane
-        test = 6;
+        test = 3;
         Truck truck = new Truck(assetManager);
         rootNode.attachChild(truck);
         truck.setLocalTranslation(0.75f, 0, 0);
@@ -79,7 +79,7 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-
+            train.Departure(tpf);
         switch (test) {
             case 1: // testing the StorageCrane both methods
                 if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
@@ -93,13 +93,18 @@ public class Main extends SimpleApplication {
                 }
                 break;
             case 3:
-                if (truckCranes[1].loadContainer(containers[0], tpf)) {
-                    test = 0; // end the test
+                if (truckCranes[1].loadContainer(containers[0], trucks[1], tpf)) {
+                    test += 1; // end the test
+                    
                 }
                 break;
             case 4:
-                if (inlandCranes[0].getContainer(containers[0], tpf, 30)) {
-                    test = 0;//end the test
+//                if (inlandCranes[0].getContainer(containers[0], tpf, 30)) {
+//                    test = 0;//end the test
+//                }
+                if (truckCranes[1].loadContainer(containers[1], trucks[1], tpf)) {
+                    test = 0; // end the test
+                    
                 }
                 break;
             case 5:
@@ -127,8 +132,8 @@ public class Main extends SimpleApplication {
             //    int i = 1;
             containers[i] = new Container(assetManager);
             rootNode.attachChild(containers[i]);
-            //containers[i].setLocalTranslation(100f, 2.5f / 6 + (2.5f / 3) * i, -50f);
-            //containers[i].rotate(0, FastMath.PI / 2, 0);
+            containers[i].setLocalTranslation(100f, 2.5f / 6 + (2.5f / 3) * i, -50f);
+            containers[i].rotate(0, FastMath.PI / 2, 0);
             //containers[i].setLocalTranslation(0, 2.5f/6, 0);
             //[i].setLocalTranslation(77f + 13f / 3 + 2.5f / 3 * 12, (2.5f / 3 * 14) + ((13/3) * i), -50f);
         }
@@ -193,7 +198,7 @@ public class Main extends SimpleApplication {
 
             truckCranes[i] = new TruckCrane(assetManager);
             rootNode.attachChild(truckCranes[i]);
-            truckCranes[i].setLocalTranslation(400f + (4.5f * i), 0, -1f);
+            truckCranes[i].setLocalTranslation(400f + (4.5f * i), 0, -11f);
             truckCranes[i].rotate(0, FastMath.PI / 2, 0);
         }
     }
