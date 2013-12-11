@@ -7,7 +7,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
@@ -47,7 +46,7 @@ public class Main extends SimpleApplication {
         initSeaCrane();
         initTrainCrane();
         initTruckCrane();
-        
+
         initTrucks();
         initTrain();
 
@@ -79,7 +78,7 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-            train.Departure(tpf);
+        train.Departure(tpf);
         switch (test) {
             case 1: // testing the StorageCrane both methods
                 if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
@@ -95,7 +94,7 @@ public class Main extends SimpleApplication {
             case 3:
                 if (truckCranes[1].loadContainer(containers[0], trucks[1], tpf)) {
                     test += 1; // end the test
-                    
+
                 }
                 break;
             case 4:
@@ -104,7 +103,7 @@ public class Main extends SimpleApplication {
 //                }
                 if (truckCranes[1].loadContainer(containers[1], trucks[1], tpf)) {
                     test = 0; // end the test
-                    
+
                 }
                 break;
             case 5:
@@ -209,12 +208,12 @@ public class Main extends SimpleApplication {
     }
 
     public void initTrucks() {
-                for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
 
             trucks[i] = new Truck(assetManager);
             rootNode.attachChild(trucks[i]);
-            trucks[i].setLocalTranslation(401.2f + (4.5f * i), 1.25f/6, -3.5f);
-            trucks[i].rotate(0, -FastMath.PI/ 2, 0);
+            trucks[i].setLocalTranslation(401.2f + (4.5f * i), 1.25f / 6, -3.5f);
+            trucks[i].rotate(0, -FastMath.PI / 2, 0);
         }
     }
 }

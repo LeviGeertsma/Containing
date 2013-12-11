@@ -105,6 +105,7 @@ public class TruckCrane extends Node {
                 if( drive == true){
                     if (truck.departure(tpf)){
                         truck.detachChild(container);
+                        switchcase++;
                         return true;
                     }
                 }
