@@ -78,7 +78,7 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-        train.Departure(tpf);
+
         switch (test) {
             case 1: // testing the StorageCrane both methods
                 if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {

@@ -21,6 +21,7 @@ public class StorageCrane extends Node {
 
     static int numberStorageCranes;
     int switchcase = 0;
+    Timer timer = new Timer();
 
     public StorageCrane(AssetManager assetManager) {
         super("Opslagkraan " + numberStorageCranes++ + " ");

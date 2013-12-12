@@ -23,6 +23,10 @@ public class TruckCrane extends Node {
     int switchcase = 0;
     static int numberOfTruckCraness;
     boolean drive = false;
+    Timer timer = new Timer();
+    float testing;
+    //Timer klok = new Timer();
+    int testinggggg = 0;
 
     public TruckCrane(AssetManager assetManager) {
         super("TruckCrane " + numberOfTruckCraness++ + " ");
@@ -54,7 +58,7 @@ public class TruckCrane extends Node {
 
     public boolean moveForward(float tpf) {
         if (this.getLocalTranslation().z > -11f) {//rij heen met snelheid 3 omdat hij niet geladen is
-            this.move(0, 0, -tpf * 3);
+            this.move(0, 0, -tpf * 3 /3 );
             return false;
 
         } else { // return true als hij zijn bestemming heeft berijkt
@@ -64,40 +68,65 @@ public class TruckCrane extends Node {
     }
 
     public boolean moveBack(float tpf) {
-        if (this.getLocalTranslation().z < (-1 - 13 / 6)) {
-            this.move(0, 0, tpf * 2);
+        if (this.getLocalTranslation().z < (-2.2f - 13 / 6)) {
+            this.move(0, 0, tpf * 2 / 3);
             return false;
         } else { // return true als hij zijn bestemming heeft berijkt
             return true;
         }
-
     }
+
+    
 
     public boolean loadContainer(Container container, Truck truck, float tpf) {
         
 
         switch (switchcase) {
-            case 0: // attach the container to the crane
+            case 0: 
+                boolean hoi = timer.counter(30, tpf);
+         // container.setLocalTranslation(406f, 2.5f/6, -11);
+                if(hoi) {
+                    switchcase++;
+                                   
+                }
+               
+                
+                break;
+            case 1:
+                //container.setLocalTranslation(400, 2.5f/3, -15);
+                if(container.getLocalTranslation().y < 2.5f / 3 * 4) {
+                    container.move(0, tpf * 0.055f, 0);}
+                
+                if(timer.counter(60, tpf)) 
+                {
                 this.attachChild(container);// attach the container to the crane
                 container.setLocalTranslation(0, 2.5f / 3 * 4, 2.5f / 3 * 1.5f);//set the correct coordinates to the container within the crane 
                 container.rotate(0, FastMath.PI / 2, 0);// rotate the container
                 switchcase += 1;// next case
-                break;
-            case 1: // repeat until above the truck
+               
+                }
+                return false;
+            
+            case 2: // repeat until above the truck
                 if (this.moveBack(tpf)) {
                     switchcase += 1;
                 }
                 return false;
-            case 2:// attach container to the truck
+            case 3:// attach container to the truck
+                if(container.getLocalTranslation().y > 2.5 / 3)
+                    container.move(0, -0.048f * tpf, 0);
+                
+                if(timer.counter(90, tpf)){ // = time for descending and attaching to truck
                 this.detachChild(container);
                 truck.attachChild(container); // attach to the truck
                // container.rotate(0, FastMath.PI / 2, 0);
-                container.setLocalTranslation(-1f, 0.65f, 0);
+                container.setLocalTranslation(-0.9f, 0.65f, 0);
                 switchcase += 1;
                 drive = false;
+                }
                 return false;
 
-            case 3:// move back
+            case 4:// move back
 
                 if (this.moveForward(tpf)) {//move to start position
                     drive = true;
