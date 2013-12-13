@@ -67,7 +67,7 @@ public class InlandCrane extends Node {
         public boolean getContainer(Container container, float tpf, int location) {
         switch (getContainerInt) {
             case 0:
-                System.out.println(this.getLocalTranslation());
+                //System.out.println(this.getLocalTranslation());
                 if ((int) this.getLocalTranslation().x < location) {
                     this.move(tpf * 8/3f, 0, 0);
 

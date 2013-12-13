@@ -77,8 +77,6 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) {
         
-        
-        inlandCranes[0].getContainer(containers[1], tpf, 20);
 
 //        switch (test) {
 //            case 1: // testing the StorageCrane both methods
