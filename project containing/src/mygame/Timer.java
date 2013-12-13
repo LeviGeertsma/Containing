@@ -16,7 +16,7 @@ public class Timer {
     }
     
     public boolean counter(int endTime, float tpf){
-        System.out.println(time);
+        
         if(time >=endTime){
             time = 0;
             return true;
