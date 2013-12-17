@@ -8,6 +8,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
+import com.jme3.system.AppSettings;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
 
@@ -28,9 +29,17 @@ public class Main extends SimpleApplication {
     public int[] trainSpacesFree = new int[87];
     int test = 1;
     public Train train;
+    public Ship ship;
 
     public static void main(String[] args) {
         Main app = new Main();
+        AppSettings settings = new AppSettings(true);
+        app.setShowSettings(false);
+        settings.setHeight(768);
+        settings.setWidth(1200);
+        settings.setVSync(true);
+        settings.setTitle("Containing");
+        app.setSettings(settings);
         app.start();
     }
 
@@ -76,6 +85,16 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
+        
+        
+ 
+        
+        
+        
+        
+        
+        
+        
         
 
 //        switch (test) {
@@ -133,14 +152,15 @@ public class Main extends SimpleApplication {
     }
 
     public void initFloor() {
-        Box box = new Box(Vector3f.ZERO, 250f, 0.02f, 100f);//13 bij 2.5
+        Box box = new Box(Vector3f.ZERO, 100f, 0.02f, 250f);//13 bij 2.5
         Geometry grond = new Geometry("A Textured Box", box);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        Texture text = assetManager.loadTexture("Textures/gras.jpg");
+        Texture text = assetManager.loadTexture("Textures/floor.png");
         mat.setTexture("ColorMap", text);
         grond.setMaterial(mat);
         rootNode.attachChild(grond);
         grond.setLocalTranslation(250f, -0.020f, -100f);
+        grond.rotate(0, -FastMath.PI/2, 0);
     }
 
     public void initStorageCrane() {
@@ -148,7 +168,7 @@ public class Main extends SimpleApplication {
         for (int i = 0; i < 45; i++) {
             storageCranes[i] = new StorageCrane(assetManager);
             rootNode.attachChild(storageCranes[i]);
-            storageCranes[i].setLocalTranslation(60f + (9.3f * i), 0, -50f);
+            storageCranes[i].setLocalTranslation(60f + (9.3f * i), 0, -35f);
             storageCranes[i].rotate(0, FastMath.PI / 2, 0);
         }
     }
@@ -192,6 +212,10 @@ public class Main extends SimpleApplication {
     public void initTrain() {
         train = new Train(assetManager);
         rootNode.attachChild(train);
+        
+//        ship = new Ship(1000, assetManager);
+//        ship.setLocalTranslation(-10, -1, -45);
+//        rootNode.attachChild(ship);
     }
 
     public void initTrucks() {
