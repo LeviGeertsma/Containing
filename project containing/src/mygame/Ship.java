@@ -20,18 +20,18 @@ public class Ship extends Node {
 
     public Container[][][] container = new Container[100][10][10];
 
-    public Ship(int nrContainers, AssetManager assetManager) {
-        int totalContainers = 0;
+    public Ship(int totalContainers, AssetManager assetManager) {
+        int nrContainers = 0;
         for (int z = 0; z < 100; z++) {
             for (int y = 0; y < 10; y++) {
                 for (int x = 0; x < 10; x++) {
-                    if (totalContainers < nrContainers) {
+                    if (totalContainers > nrContainers) {
                         container[x][y][z] = new Container(assetManager);//, totalContainers in cs
                         container[x][y][z].setLocalTranslation(2.5f * x / 3, 2.5f * y / 3, 13.1f * z / 3);
                         container[x][y][z].rotate(0, FastMath.PI / 2, 0);
                         attachChild(container[x][y][z]);
-                        totalContainers++;
-
+                        nrContainers++;
+                    } else {
                     }
                 }
             }

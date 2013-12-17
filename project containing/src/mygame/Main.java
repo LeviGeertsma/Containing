@@ -86,7 +86,7 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) {
         
-        
+
  
         
         
@@ -168,7 +168,7 @@ public class Main extends SimpleApplication {
         for (int i = 0; i < 45; i++) {
             storageCranes[i] = new StorageCrane(assetManager);
             rootNode.attachChild(storageCranes[i]);
-            storageCranes[i].setLocalTranslation(60f + (9.3f * i), 0, -35f);
+            storageCranes[i].setLocalTranslation(60f + (9.3f * i), 0, -50f);
             storageCranes[i].rotate(0, FastMath.PI / 2, 0);
         }
     }
@@ -213,9 +213,9 @@ public class Main extends SimpleApplication {
         train = new Train(assetManager);
         rootNode.attachChild(train);
         
-//        ship = new Ship(1000, assetManager);
-//        ship.setLocalTranslation(-10, -1, -45);
-//        rootNode.attachChild(ship);
+        ship = new Ship(1000, assetManager);
+        ship.setLocalTranslation(-10, -1, -45);
+        rootNode.attachChild(ship);
     }
 
     public void initTrucks() {
