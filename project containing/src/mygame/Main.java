@@ -78,25 +78,14 @@ public class Main extends SimpleApplication {
         // set test 3 for testing TruckCrain
         // 4 inland
         // 5 seacrane
-        test = 3;
-        
+        //test = 3;
+
         //truck.attachChild(containers[1]);
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        
-
- 
-        
-        
-        
-        
-        
-        
-        
-        
-
+        seaCranes[0].getContainer(ship.container[2][9][0], tpf, -10);
 //        switch (test) {
 //            case 1: // testing the StorageCrane both methods
 //                if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
@@ -160,7 +149,7 @@ public class Main extends SimpleApplication {
         grond.setMaterial(mat);
         rootNode.attachChild(grond);
         grond.setLocalTranslation(250f, -0.020f, -100f);
-        grond.rotate(0, -FastMath.PI/2, 0);
+        grond.rotate(0, -FastMath.PI / 2, 0);
     }
 
     public void initStorageCrane() {
@@ -212,9 +201,9 @@ public class Main extends SimpleApplication {
     public void initTrain() {
         train = new Train(assetManager);
         rootNode.attachChild(train);
-        
+
         ship = new Ship(1000, assetManager);
-        ship.setLocalTranslation(-10, -1, -45);
+        ship.setLocalTranslation(-10, -1, -10);
         rootNode.attachChild(ship);
     }
 

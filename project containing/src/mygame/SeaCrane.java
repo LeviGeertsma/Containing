@@ -3,7 +3,6 @@ package mygame;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -73,7 +72,7 @@ public class SeaCrane extends Node {
                 if (timer.counter(30, tpf)) {
                     this.attachChild(container);
                     container.setLocalTranslation(-10, 13.5f, 3);
-                    container.rotate(0, FastMath.PI / 2, 0);
+                    //container.rotate(0, FastMath.PI / 2, 0);
                     getContainerInt++;
                 }
                 break;

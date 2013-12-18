@@ -43,5 +43,6 @@ public class Ship extends Node {
         boxGeo.setMaterial(boxMat);
         boxGeo.setLocalTranslation(3.75f, -.6f, 15);
         attachChild(boxGeo);
+        this.rotate(0, FastMath.PI, 0);
     }
 }
