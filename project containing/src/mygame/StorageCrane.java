@@ -49,15 +49,15 @@ public class StorageCrane extends Node {
         topside.setLocalTranslation(0, 8, 4);
     }
 
-    public boolean moveForward(boolean isloaded, float tpf, int rij) {
+    public boolean moveForward(boolean isloaded, float tpf, int rij, int naarkolom) {
 
 
         if (isloaded == false && this.getLocalTranslation().z > (-50f - (13.5f / 3 * (rij + 1)))) {//rij heen met snelheid 3 omdat hij niet geladen is
-            this.move(0, 0, -tpf * 3);
+            this.move(0, 0, -tpf * 3 / 3);
             return false;
 
         } else if (this.getLocalTranslation().z > (-50f - (13.5f / 3 * (rij + 1)))) {//rij heen met snelheid 2 omdat hij wel geladen is
-            this.move(0, 0, -tpf * 2);
+            this.move(0, 0, -tpf * 2 / 3);
             return false;
 
         } else { // return true als hij zijn bestemming heeft berijkt
@@ -66,14 +66,14 @@ public class StorageCrane extends Node {
         }
     }
 
-    public boolean moveBack(boolean isloaded, float tpf) {
+    public boolean moveBack(boolean isloaded, float tpf, int naarkolom) {
         // vector van de huidige locatie van de kraan
         if (this.getLocalTranslation().z < -50 && isloaded == false) {//terugrijden met snelheid 3 als ongeladen is
-            this.move(0, 0, tpf * 3);
+            this.move(0, 0, tpf * 3 / 3);
             return false;
 
         } else if (this.getLocalTranslation().z < -50 && isloaded == true) {//terugrijden met snelheid 2 als geladen is
-            this.move(0, 0, tpf * 2);
+            this.move(0, 0, tpf * 2 / 2);
             return false;
 
         } else {
@@ -81,24 +81,43 @@ public class StorageCrane extends Node {
         }
     }
 
-    public boolean placeContainer(Container container, int rij, int hoogte, int kolom, float tpf) {
+    public boolean placeContainer(Container container, int agvkolom, int rij, int hoogte, int kolom, float tpf) {
 
         String numberStorageCranesCounter = ""; // string leeg maken
-
+      
         switch (switchcase) {
-            case 0:
+            case 0://zekeren en goed in de 
+                if(timer.counter(30, tpf)){
                 this.attachChild(container);// container vast maken aan de kraan zodat hij meerijdt
+<<<<<<< Updated upstream
                 container.setLocalTranslation(0, 2.5f / 3 * 8, 2.5f / 3 * 5);//goed neerzetten 
+=======
+                container.setLocalTranslation(0,0,2 + 2.5f/3*kolom);
+                container.rotate(0, FastMath.PI / 2, 0);
+>>>>>>> Stashed changes
                 switchcase += 1;// ga naar volgende case
+                }
                 break;
 
-            case 1: // deze case herhalen todat hij eindbestemming berijkt heeft
-                if (this.moveForward(true, tpf, rij)) {
+            case 1://hier moet de container gehesen worden
+                if(timer.counter(210, tpf)){
+                    switchcase++;
+                    container.setLocalTranslation(0, 2.5f/3*8, 2 + 2.5f/3*kolom);
+                    
+                }
+                
+                if(container.getLocalTranslation().y < 2.5f/3*8){
+                    container.move(0, 0.03f * tpf, 0);
+                }
+                break;
+            case 2: // deze case herhalen todat hij eindbestemming berijkt heeft
+                
+                if (this.moveForward(true, tpf, rij, agvkolom)) {
                     switchcase += 1;
                 }
                 return false;
 
-            case 2:
+            case 3:
                 this.detachChild(container);
                 super.parent.attachChild(container);
                 container.rotate(0, FastMath.PI / 2, 0);
@@ -118,8 +137,8 @@ public class StorageCrane extends Node {
                 switchcase += 1;
                 return false;
 
-            case 3:
-                if (this.moveBack(false, tpf)) {
+            case 4:
+                if (this.moveBack(false, tpf, agvkolom)) {
                     switchcase = 0;
                     return true;
                 }
@@ -133,7 +152,7 @@ public class StorageCrane extends Node {
 
         switch (switchcase) {
             case 0:
-                if (this.moveForward(false, tpf, rij)) {
+                if (this.moveForward(false, tpf, rij, 4)) {
                     switchcase += 1;
                 }
                 return false;
@@ -144,7 +163,7 @@ public class StorageCrane extends Node {
                 switchcase += 1;// ga naar volgende case
                 break;
             case 2:
-                if (this.moveBack(false, tpf)) {
+                if (this.moveBack(false, tpf,4)) {
                     switchcase += 1;
                 }
                 return false;

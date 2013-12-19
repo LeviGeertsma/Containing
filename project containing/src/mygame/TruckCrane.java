@@ -58,7 +58,7 @@ public class TruckCrane extends Node {
 
     public boolean moveForward(float tpf) {
         if (this.getLocalTranslation().z > -11f) {//rij heen met snelheid 3 omdat hij niet geladen is
-            this.move(0, 0, -tpf * 3 /3 );
+            this.move(0, 0, -tpf * (20 / 3.6f / 3) ); // 20 km/h / 3.6 = m/s / 3 our scale
             return false;
 
         } else { // return true als hij zijn bestemming heeft berijkt
@@ -69,7 +69,7 @@ public class TruckCrane extends Node {
 
     public boolean moveBack(float tpf) {
         if (this.getLocalTranslation().z < (-2.2f - 13 / 6)) {
-            this.move(0, 0, tpf * 2 / 3);
+            this.move(0, 0, tpf * (15 / 3.6f / 3)); // 15 km/h / 3.6 = m/s / 3 our scale 
             return false;
         } else { // return true als hij zijn bestemming heeft berijkt
             return true;
