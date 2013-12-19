@@ -17,25 +17,24 @@ import com.jme3.scene.shape.Box;
  * @author Levi
  */
 public class Ship extends Node {
-
-    public Container[][][] container = new Container[100][10][10];
+    
+    public Container[][][] container = new Container[19][15][100];
 
     public Ship(int totalContainers, AssetManager assetManager) {
         int nrContainers = 0;
         for (int z = 0; z < 100; z++) {
-            for (int y = 0; y < 10; y++) {
-                for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 15; y++) {
+                for (int x = 0; x < 19; x++) {
                     if (totalContainers > nrContainers) {
-                        container[x][y][z] = new Container(assetManager);//, totalContainers in cs
+                        container[x][y][z] = new Container(assetManager);
                         container[x][y][z].setLocalTranslation(2.5f * x / 3, 2.5f * y / 3, 13.1f * z / 3);
                         container[x][y][z].rotate(0, FastMath.PI / 2, 0);
                         attachChild(container[x][y][z]);
                         nrContainers++;
-                    } else {
                     }
                 }
             }
-        }/* A colored lit cube. Needs light source! */
+        }
         Box boxMesh = new Box(5f, .4f, 30f);
         Geometry boxGeo = new Geometry("Colored Box", boxMesh);
         Material boxMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");

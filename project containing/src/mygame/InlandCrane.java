@@ -20,17 +20,17 @@ import com.jme3.scene.shape.Box;
 public class InlandCrane extends Node {
     //dezelfde clas als binnenvaartkraan alleen dan straks met andere
     //properties voor de kraan
-    int getContainerInt=0;
+
+    int getContainerInt = 0;
     Timer timer = new Timer();
-    
 
     public InlandCrane(AssetManager assetManager) {
-      
+
 
         Material binnenvaartkraanMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         binnenvaartkraanMat.setColor("Color", ColorRGBA.Black);
 
-        
+
         Spatial binnenvaartkraan1 = new Geometry("ColoredBox", new Box(1f, 7.5f, .5f));
         Spatial binnenvaartkraan2 = new Geometry("ColoredBox", new Box(1f, 7.5f, .5f));
         Spatial binnenvaartkraan3 = new Geometry("ColoredBox", new Box(1f, 7.5f, .5f));
@@ -63,39 +63,37 @@ public class InlandCrane extends Node {
         attachChild(binnenvaartkraan6);
         attachChild(binnenvaartkraan7);
     }
-    
-        public boolean getContainer(Container container, float tpf, int location) {
+
+    public boolean getContainer(Container container, float tpf, int location) {
         switch (getContainerInt) {
             case 0:
-                //System.out.println(this.getLocalTranslation());
                 if ((int) this.getLocalTranslation().x < location) {
-                    this.move(tpf * 8/3f, 0, 0);
-
+                    this.move(tpf * 8 / 3f, 0, 0);
                 } else if ((int) this.getLocalTranslation().x > location) {
-                    this.move(-tpf * 8/3f, 0, 0);
+                    this.move(-tpf * 8 / 3f, 0, 0);
                 }
                 if ((int) this.getLocalTranslation().x == location) {
                     getContainerInt++;
-                }      
+                }
                 break;
             case 1:
-                if(timer.counter(240, tpf)){
+                if (timer.counter(240, tpf)) {
                     getContainerInt++;
                     this.attachChild(container);
                     container.setLocalTranslation(-10, 13.5f, 3);
-                    container.rotate(0,FastMath.PI / 2,0);
+                    container.rotate(0, FastMath.PI / 2, 0);
                 }
                 break;
             case 2:
                 if ((int) container.getLocalTranslation().x < 7f) {
-                    container.move(5f/3f * tpf, 0, 0);
+                    container.move(5f / 3f * tpf, 0, 0);
 
-                } else if(timer.counter(240, tpf)){
+                } else if (timer.counter(240, tpf)) {
                     getContainerInt++;
                     this.detachChild(container);
                     super.parent.attachChild(container);
                     container.setLocalTranslation(this.getLocalTranslation().x + 3, 1, this.getLocalTranslation().z + 4);
-                    container.rotate(0, FastMath.PI/2, 0);
+                    container.rotate(0, FastMath.PI / 2, 0);
                     return true;
                 }
                 return false;

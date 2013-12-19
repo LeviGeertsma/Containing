@@ -85,7 +85,6 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-        seaCranes[0].getContainer(ship.container[2][9][0], tpf, -10);
 //        switch (test) {
 //            case 1: // testing the StorageCrane both methods
 //                if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
@@ -130,18 +129,15 @@ public class Main extends SimpleApplication {
 
     public void makecontainer() {
         for (int i = 0; i < 100; i++) {
-            //    int i = 1;
             containers[i] = new Container(assetManager);
             rootNode.attachChild(containers[i]);
             containers[i].setLocalTranslation(100f, 2.5f / 6 + (2.5f / 3) * i, -50f);
             containers[i].rotate(0, FastMath.PI / 2, 0);
-            //containers[i].setLocalTranslation(0, 2.5f/6, 0);
-            //[i].setLocalTranslation(77f + 13f / 3 + 2.5f / 3 * 12, (2.5f / 3 * 14) + ((13/3) * i), -50f);
         }
     }
 
     public void initFloor() {
-        Box box = new Box(Vector3f.ZERO, 100f, 0.02f, 250f);//13 bij 2.5
+        Box box = new Box(Vector3f.ZERO, 100f, 0.02f, 250f);
         Geometry grond = new Geometry("A Textured Box", box);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         Texture text = assetManager.loadTexture("Textures/floor.png");

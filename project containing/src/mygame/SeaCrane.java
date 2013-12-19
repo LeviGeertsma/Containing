@@ -57,10 +57,10 @@ public class SeaCrane extends Node {
         switch (getContainerInt) {
             case 0:
                 if ((int) this.getLocalTranslation().z < location) {
-                    this.move(0, 0, tpf * 4/3.6f/3);
+                    this.move(0, 0, tpf * 4 / 3.6f / 3);
 
                 } else if ((int) this.getLocalTranslation().z > location) {
-                    this.move(0, 0, -tpf * 4/3.6f/3);
+                    this.move(0, 0, -tpf * 4 / 3.6f / 3);
                 }
 
                 if ((int) this.getLocalTranslation().z == location) {
@@ -72,29 +72,26 @@ public class SeaCrane extends Node {
                 if (timer.counter(30, tpf)) {
                     this.attachChild(container);
                     container.setLocalTranslation(-10, 13.5f, 3);
-                    //container.rotate(0, FastMath.PI / 2, 0);
                     getContainerInt++;
                 }
                 break;
             case 2:
                 if ((int) container.getLocalTranslation().x < 7f) {
-                    container.move(0.1f*tpf, 0, 0);
-                    
+                    container.move(0.1f * tpf, 0, 0);
                 } else {
                     getContainerInt++;
                 }
                 break;
             case 3:
                 if ((int) container.getLocalTranslation().y > 0.5f) {
-                    container.move(0, -0.1f*tpf, 0);
-                    
+                    container.move(0, -0.1f * tpf, 0);
                 } else {
                     this.detachChild(container);
                     super.parent.attachChild(container);
                     container.setLocalTranslation(this.getLocalTranslation().x + 7, 1, this.getLocalTranslation().z + 2);
                     return true;
                 }
-                return false;
+                break;
         }
         return false;
     }

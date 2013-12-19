@@ -57,14 +57,10 @@ public class TrainCrane extends Node {
                     numberOfTrainCranes += super.name.charAt(18);
                 }
                 
-                //System.out.println( row );
-                //System.out.println( Integer.parseInt(numberOfTrainCranes));
                 if ((int) this.getLocalTranslation().x < (int)(13 / 3 * row * 1.2f) + (95f)) {
                     this.move(tpf * 10f, 0, 0);
-               //System.out.println(" rij weg ");
                 } else if ((int) this.getLocalTranslation().x > (int)(13 / 3 * row * 1.2f) + (95f)) {
                     this.move(-tpf * 10f, 0, 0);
-                    //System.out.println(" rij heen ");
                 }
 
                 if ((int) this.getLocalTranslation().x == (int)(13 / 3 * row * 1.2f) + (95f)) {
@@ -80,11 +76,8 @@ public class TrainCrane extends Node {
                 } else {
                     getContainerInt++;
                     this.detachChild(container);
-                    //Spatial  train = this.parent.getChild(train);
-                    //Train train = this.parent.getChild("train");
                     train.attachChild(container);
                     container.setLocalTranslation(-199 + (13 / 3 * row * 1.2f) + 13 / 3, 1, 0);
-                    //System.out.println("finished");
                     return true;
                 }
                 return false;
