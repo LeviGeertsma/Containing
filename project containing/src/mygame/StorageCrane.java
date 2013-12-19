@@ -5,6 +5,7 @@
 package mygame;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
@@ -89,12 +90,9 @@ public class StorageCrane extends Node {
             case 0://zekeren en goed in de 
                 if(timer.counter(30, tpf)){
                 this.attachChild(container);// container vast maken aan de kraan zodat hij meerijdt
-<<<<<<< Updated upstream
                 container.setLocalTranslation(0, 2.5f / 3 * 8, 2.5f / 3 * 5);//goed neerzetten 
-=======
                 container.setLocalTranslation(0,0,2 + 2.5f/3*kolom);
                 container.rotate(0, FastMath.PI / 2, 0);
->>>>>>> Stashed changes
                 switchcase += 1;// ga naar volgende case
                 }
                 break;
@@ -122,15 +120,7 @@ public class StorageCrane extends Node {
                 super.parent.attachChild(container);
                 container.rotate(0, FastMath.PI / 2, 0);
 
-                if (super.name.charAt(13) != ' ') {
-                    // hier zet je de 2 mogelijke nummers van de huidige kraan neer
-                    numberStorageCranesCounter += super.name.charAt(12) + super.name.charAt(13);
-                } else {
-                    numberStorageCranesCounter += super.name.charAt(12);
-                }
-
-                container.setLocalTranslation(62f + (9.3f
-                        * Integer.parseInt(numberStorageCranesCounter)) + 2.5f / 3 * kolom, // de x
+                container.setLocalTranslation(this.getLocalTranslation().x + 2.5f / 3 * kolom, // de x
                         2.5f / 6 + 2.5f / 3f * hoogte, // de y = de hoogte
                         (-50f - 13.5f / 3 * (rij + 1))); // de z = de diepte
 
@@ -179,8 +169,7 @@ public class StorageCrane extends Node {
                     numberStorageCranesCounter += super.name.charAt(12);
                 }
 
-                container.setLocalTranslation(62f + (9.3f
-                        * Integer.parseInt(numberStorageCranesCounter)) + 2.5f / 3 * 3, // de x
+                container.setLocalTranslation(this.getLocalTranslation().x + 1.5f, // de x
                         2.5f / 6, // de y = de hoogte
                         (-50)); // de z = de diepte
                 switchcase = 0;
@@ -189,5 +178,5 @@ public class StorageCrane extends Node {
         }
         return false;
 
-    }
+    }   
 }

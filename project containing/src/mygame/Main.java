@@ -30,6 +30,7 @@ public class Main extends SimpleApplication {
     int test = 1;
     public Train train;
     public Ship ship;
+    public static int random = 0;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -78,55 +79,48 @@ public class Main extends SimpleApplication {
         // set test 3 for testing TruckCrain
         // 4 inland
         // 5 seacrane
-<<<<<<< Updated upstream
         //test = 3;
 
-=======
-        test = 1;
-        Truck truck = new Truck(assetManager);
-        rootNode.attachChild(truck);
-        truck.setLocalTranslation(0.75f, 0, 0);
->>>>>>> Stashed changes
-        //truck.attachChild(containers[1]);
+        
+        
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-<<<<<<< Updated upstream
+
+        trucks[random].departure(tpf);
 //        switch (test) {
 //            case 1: // testing the StorageCrane both methods
 //                if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
 //                    test += 1;// continue
-=======
-        tpf *= 50;
-        switch (test) {
-            case 0:
-                //containers[0].rotateUpTo(new Vector3f(0,0,0));
-                //containers[1].lookAt(containers[1].getLocalTranslation(), new Vector3f(100,100,100));
-                
-                System.out.println("test");
-                break;
-            case 1: // testing the StorageCrane both methods
-                if (storageCranes[1].placeContainer(containers[0], 1, 1, 0, 1, tpf)) {
-                    test = 50;// continue
-                }
-                break;
-            case 2: // testing the StorageCrane get container note that there has to be a container first
-                // this will be checked in the controller and not in the simulator so it can't give an error
-                if (storageCranes[1].getContainer(containers[0], 1, tpf)) {
-                    test = 0; // end the test
-                }
-                break;
-            case 3:
-                if (truckCranes[1].loadContainer(containers[0], trucks[1], tpf)) {
-                    test += 1; // end the test
-
-                }
-                break;
-            case 4:
+//        tpf *= 50;
+//        switch (test) {
+//            case 0:
+//                //containers[0].rotateUpTo(new Vector3f(0,0,0));
+//                //containers[1].lookAt(containers[1].getLocalTranslation(), new Vector3f(100,100,100));
+//                
+//                System.out.println("test");
+//                break;
+//            case 1: // testing the StorageCrane both methods
+//                if (storageCranes[1].placeContainer(containers[0], 1, 1, 0, 1, tpf)) {
+//                    test = 50;// continue
+//                }
+//                break;
+//            case 2: // testing the StorageCrane get container note that there has to be a container first
+//                // this will be checked in the controller and not in the simulator so it can't give an error
+//                if (storageCranes[1].getContainer(containers[0], 1, tpf)) {
+//                    test = 0; // end the test
+//                }
+//                break;
+//            case 3:
+//                if (truckCranes[1].loadContainer(containers[0], trucks[1], tpf)) {
+//                    test += 1; // end the test
+//
+//                }
+//                break;
+//            case 4:
 //                if (inlandCranes[0].getContainer(containers[0], tpf, 30)) {
 //                    test = 0;//end the test
->>>>>>> Stashed changes
 //                }
 //                break;
 //            case 2: // testing the StorageCrane get container note that there has to be a container first
