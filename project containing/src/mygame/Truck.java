@@ -15,18 +15,18 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Cylinder;
-import java.util.Random;
 
 /**
  *
- * @author User
+ * Making of the Truck,
+ * + the possibility to move truck away and place a 'new' one
  */
 public class Truck extends Node {
 
     static int numberOfTrucks;
-    Random rand = new Random();
     public static ParticleEmitter fireEffect;
 
+    /// The truckmaking
     public Truck(AssetManager assetManager) {
         super("Truck " + numberOfTrucks++ + " ");
 
@@ -36,11 +36,12 @@ public class Truck extends Node {
 
         Geometry bottom = new Geometry("the bottom of the truck", boxshape1);
         Geometry cabin = new Geometry("the cabin of the truck", boxshape2);
-        Geometry exhaust = new Geometry("the exhaust of the truck", cylinder);
+                Geometry exhaust = new Geometry("the exhaust of the truck", cylinder);
+
 
 
         Material mat_tex = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat_tex.setColor("Color", ColorRGBA.Cyan);
+        mat_tex.setColor("Color", ColorRGBA.Gray);
         Material mat_tex2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat_tex2.setColor("Color", ColorRGBA.Gray);
 
@@ -51,6 +52,7 @@ public class Truck extends Node {
         attachChild(bottom);
         attachChild(cabin);
         attachChild(exhaust);
+        
 
         bottom.setLocalTranslation(0, 0, 0);
         cabin.setLocalTranslation(15f / 6, 2.5f / 6, 0);
@@ -74,23 +76,19 @@ public class Truck extends Node {
         fireEffect.setFacingVelocity(true);
         fireEffect.getParticleInfluencer().setVelocityVariation(0.3f);
         fireEffect.setLocalTranslation(1.6f, 5.5f / 6, 2.5f / 6);
-        
-
-
-
     }
-
+    
+    /// Method that moves the Truck and places a 'new' one. (it's the same truck but now 
+    /// without the container)
     public boolean departure(float tpf) {
         this.attachChild(fireEffect);
-        if (this.getLocalTranslation().z < 30 / 3) {
+        if (this.getLocalTranslation().z < 13 / 3) {
             this.move(0, 0, 5 * tpf);
             return false;
         } else {
-            this.setLocalTranslation(this.getLocalTranslation().x, 1.25f / 6, -3.5f);
-            Main.random = rand.nextInt(20);
             this.detachChild(fireEffect);
+            this.setLocalTranslation(this.getLocalTranslation().x, 1.25f / 6, -3.5f);
             return true;
-
         }
     }
 }

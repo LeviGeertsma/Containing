@@ -30,13 +30,13 @@ public class Main extends SimpleApplication {
     int test = 1;
     public Train train;
     public Ship ship;
-    public static int random = 0;
+    int i = 0;
 
     public static void main(String[] args) {
         Main app = new Main();
         AppSettings settings = new AppSettings(true);
         app.setShowSettings(false);
-        settings.setHeight(768);
+        settings.setHeight(600);
         settings.setWidth(1200);
         settings.setVSync(true);
         settings.setTitle("Containing");
@@ -79,96 +79,48 @@ public class Main extends SimpleApplication {
         // set test 3 for testing TruckCrain
         // 4 inland
         // 5 seacrane
-        //test = 3;
-        truckCranes[1].heeftOpdracht = true;
-        truckCranes[6].heeftOpdracht = true;
-        truckCranes[13].heeftOpdracht = true;
-        truckCranes[19].heeftOpdracht = true;
 
-        
-        
+        //test = 3;
+
+
+        test = 0;
+        Truck truck = new Truck(assetManager);
+        rootNode.attachChild(truck);
+        truck.setLocalTranslation(0.75f, 0, 0);
+
+        //truck.attachChild(containers[1]);
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        for(int i = 0; i<20; i++)
-        {
-            if(truckCranes[i].heeftOpdracht){
+        //when i turns 8 let the storage crane place container 1 to row 1 colom 1 height 0
+        //when i turns 10 let the storage crane place container 2 to row 1 colom 1 height 1
+        tpf *= 10;
+        if(i==0){
+        if(trainCranes[1].setContainer(train, containers[0], tpf, 35))
+            i = 1;}
+        
+        if(i==1){
+            if(trainCranes[1].setContainer(train, containers[1], tpf, 36))
+            i=2;
+        }
+            if(i==2){
+            if(trainCranes[1].setContainer(train, containers[2], tpf, 37))
+            i=3;
+        }
+            
+        for (int i = 0; i < 20; i++) {
+            if (truckCranes[i].heeftOpdracht) {
                 truckCranes[i].loadContainer(containers[i], trucks[i], tpf);
             }
-        }
-        //inlandCranes[0].getContainer(containers[1], tpf, 10);
-        //trucks[random].departure(tpf);
-//        switch (test) {
-//            case 1: // testing the StorageCrane both methods
-//                if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {
-//                    test += 1;// continue
-//        tpf *= 50;
-//        switch (test) {
-//            case 0:
-//                //containers[0].rotateUpTo(new Vector3f(0,0,0));
-//                //containers[1].lookAt(containers[1].getLocalTranslation(), new Vector3f(100,100,100));
-//                
-//                System.out.println("test");
-//                break;
-//            case 1: // testing the StorageCrane both methods
-//                if (storageCranes[1].placeContainer(containers[0], 1, 1, 0, 1, tpf)) {
-//                    test = 50;// continue
-//                }
-//                break;
-//            case 2: // testing the StorageCrane get container note that there has to be a container first
-//                // this will be checked in the controller and not in the simulator so it can't give an error
-//                if (storageCranes[1].getContainer(containers[0], 1, tpf)) {
-//                    test = 0; // end the test
-//                }
-//                break;
-//            case 3:
-//                if (truckCranes[1].loadContainer(containers[0], trucks[1], tpf)) {
-//                    test += 1; // end the test
-//
-//                }
-//                break;
-//            case 4:
-//                if (inlandCranes[0].getContainer(containers[0], tpf, 30)) {
-//                    test = 0;//end the test
-//                }
-//                break;
-//            case 2: // testing the StorageCrane get container note that there has to be a container first
-//                // this will be checked in the controller and not in the simulator so it can't give an error
-//                if (storageCranes[1].getContainer(containers[0], 1, tpf)) {
-//                    test = 0; // end the test
-//                }
-//                break;
-//            case 3:
-//                if (truckCranes[1].loadContainer(containers[0], trucks[1], tpf)) {
-//                    test += 1; // end the test
-//                }
-//                break;
-//            case 4:
-////                if (inlandCranes[0].getContainer(containers[0], tpf, 30)) {
-////                    test = 0;//end the test
-////                }
-//                if (truckCranes[1].loadContainer(containers[1], trucks[1], tpf)) {
-//                    test = 0; // end the test
-//                }
-//                break;
-//            case 5:
-//                if (seaCranes[0].getContainer(containers[0], tpf, -10)) {
-//                    test = 0;
-//                }
-//                break;
-//            case 6:
-//                if (trainCranes[1].setContainer(train, containers[0], tpf, 30, true)) {
-//                    test = 0;
-//                }
-//                break;
-//        }
+        }    
+        
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
     }
-
+       
     public void makecontainer() {
         for (int i = 0; i < 100; i++) {
             containers[i] = new Container(assetManager);

@@ -13,13 +13,14 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 
 /**
- *
- * @author User
+ * Making a train,
+ * and giving it the possibility to let it Departure.
  */
 public class Train extends Node {
 
+    /// Making of the Train
     public Train(AssetManager assetManager) {
-        Box boxshape1 = new Box(Vector3f.ZERO, 200f, .5f, 2.8f/3f );
+        Box boxshape1 = new Box(Vector3f.ZERO, 200f, .5f, 2.8f / 3f);
         Geometry Train = new Geometry("Train", boxshape1);
         Material mat_tex = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat_tex.setColor("Color", ColorRGBA.Pink);
@@ -28,11 +29,13 @@ public class Train extends Node {
         this.setLocalTranslation(290, .5f, -197);
     }
 
+    /// Moving the train out of the landscape and letting it dissapear.
+    /// So a new one can be made.
     public void Departure(float tpf) {
-        if (this.getLocalTranslation().x < 700) {
+        if (this.getLocalTranslation().x < 700) 
             this.move(48f * tpf, 0, 0);
-        } else {
+        else 
             this.removeFromParent();
-        }
+        
     }
 }
