@@ -80,6 +80,10 @@ public class Main extends SimpleApplication {
         // 4 inland
         // 5 seacrane
         //test = 3;
+        truckCranes[1].heeftOpdracht = true;
+        truckCranes[6].heeftOpdracht = true;
+        truckCranes[13].heeftOpdracht = true;
+        truckCranes[19].heeftOpdracht = true;
 
         
         
@@ -87,8 +91,14 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-
-        trucks[random].departure(tpf);
+        for(int i = 0; i<20; i++)
+        {
+            if(truckCranes[i].heeftOpdracht){
+                truckCranes[i].loadContainer(containers[i], trucks[i], tpf);
+            }
+        }
+        //inlandCranes[0].getContainer(containers[1], tpf, 10);
+        //trucks[random].departure(tpf);
 //        switch (test) {
 //            case 1: // testing the StorageCrane both methods
 //                if (storageCranes[1].placeContainer(containers[0], 1, 0, 1, tpf)) {

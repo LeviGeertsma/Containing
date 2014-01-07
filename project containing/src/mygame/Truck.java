@@ -56,18 +56,15 @@ public class Truck extends Node {
         cabin.setLocalTranslation(15f / 6, 2.5f / 6, 0);
         exhaust.setLocalTranslation(1.6f, 0.5f, 2.5f / 6);
         exhaust.rotate(FastMath.PI / 2, 0, 0);
-
-        /**
-         * Uses Texture from jme3-test-data library!
-         */
+        
         fireEffect = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 20);
         Material fireMat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
         fireMat.setTexture("Texture", assetManager.loadTexture("Effects/Smoke/Smoke.png"));
         fireEffect.setMaterial(fireMat);
         fireEffect.setImagesX(15);
-        fireEffect.setImagesY(1); // 2x2 texture animation
-        fireEffect.setEndColor(ColorRGBA.White);   // red
-        fireEffect.setStartColor(ColorRGBA.White); // yellow
+        fireEffect.setImagesY(1); 
+        fireEffect.setEndColor(ColorRGBA.White);
+        fireEffect.setStartColor(ColorRGBA.White);
         fireEffect.getParticleInfluencer().setInitialVelocity(new Vector3f(0, .7f, 0));
         fireEffect.setStartSize(0.1f);
         fireEffect.setEndSize(0.4f);
@@ -93,7 +90,7 @@ public class Truck extends Node {
             Main.random = rand.nextInt(20);
             this.detachChild(fireEffect);
             return true;
-            
+
         }
     }
 }

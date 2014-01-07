@@ -19,7 +19,7 @@ import com.jme3.scene.shape.Box;
  * zetten terugrijden
  */
 public class TruckCrane extends Node {
-
+    boolean heeftOpdracht = false;
     int switchcase = 0;
     static int numberOfTruckCraness;
     boolean drive = false;
@@ -27,6 +27,7 @@ public class TruckCrane extends Node {
     float testing;
     //Timer klok = new Timer();
     int testinggggg = 0;
+    
 
     public TruckCrane(AssetManager assetManager) {
         super("TruckCrane " + numberOfTruckCraness++ + " ");
@@ -87,6 +88,7 @@ public class TruckCrane extends Node {
          // container.setLocalTranslation(406f, 2.5f/6, -11);
                 if(hoi) {
                     switchcase++;
+                    container.setLocalTranslation(this.getLocalTranslation().x+1.25f, this.getLocalTranslation().y, this.getLocalTranslation().z);
                                    
                 }
                
