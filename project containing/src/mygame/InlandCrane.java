@@ -28,7 +28,7 @@ public class InlandCrane extends Node {
 
 
         Material binnenvaartkraanMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        binnenvaartkraanMat.setColor("Color", ColorRGBA.Black);
+        binnenvaartkraanMat.setColor("Color", ColorRGBA.DarkGray);
 
 
         Spatial binnenvaartkraan1 = new Geometry("ColoredBox", new Box(1f, 7.5f, .5f));
@@ -64,7 +64,7 @@ public class InlandCrane extends Node {
         attachChild(binnenvaartkraan7);
     }
 
-    public boolean getContainer(Container container, float tpf, int location) {
+    public boolean getContainer(Container container, InlandShip ship,float tpf, int location) {
         switch (getContainerInt) {
             case 0:
                 if ((int) this.getLocalTranslation().x < location) {
@@ -80,20 +80,18 @@ public class InlandCrane extends Node {
                 if (timer.counter(240, tpf)) {
                     getContainerInt++;
                     this.attachChild(container);
-                    container.setLocalTranslation(-10, 13.5f, 3);
+                    container.setLocalTranslation(7, 13.5f, 3);
                     container.rotate(0, FastMath.PI / 2, 0);
                 }
                 break;
             case 2:
-                if ((int) container.getLocalTranslation().x < 7f) {
-                    container.move(5f / 3f * tpf, 0, 0);
+                if ((int) container.getLocalTranslation().x > -10f) {
+                    container.move(-5f / 3f * tpf, 0, 0);
 
                 } else if (timer.counter(240, tpf)) {
                     getContainerInt++;
                     this.detachChild(container);
-                    super.parent.attachChild(container);
-                    container.setLocalTranslation(this.getLocalTranslation().x + 3, 1, this.getLocalTranslation().z + 4);
-                    container.rotate(0, FastMath.PI / 2, 0);
+                    ship.attachContainer(container);                    
                     return true;
                 }
                 return false;

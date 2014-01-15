@@ -41,7 +41,7 @@ public class Truck extends Node {
 
 
         Material mat_tex = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat_tex.setColor("Color", ColorRGBA.Gray);
+        mat_tex.setColor("Color", ColorRGBA.Cyan);
         Material mat_tex2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat_tex2.setColor("Color", ColorRGBA.Gray);
 
